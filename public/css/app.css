@@ -1,0 +1,6 @@
+/* Gaya tambahan di atas Bootstrap 5 */
+.navbar-brand i { margin-right: .25rem; }
+.table td, .table th { vertical-align: middle; }
+.card { border-radius: .75rem; }
+.card-header:first-child { border-radius: .75rem .75rem 0 0; }
+.text-uppercase::placeholder { text-transform: none; }
