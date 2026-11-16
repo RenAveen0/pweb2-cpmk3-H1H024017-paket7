@@ -2,10 +2,10 @@
 
 | | |
 |---|---|
-| **Nama** | `<ISI NAMA LENGKAP>` |
+| **Nama** | Hana Nur Fathiyyah |
 | **NIM** | H1H024017 |
 | **Paket** | 7 — Seminar dan Pendaftaran Peserta |
-| **Video YouTube** | `<ISI LINK VIDEO>` |
+| **Video YouTube** | `<LINK VIDEO>` |
 
 Aplikasi web fullstack MVC (struktur ala Laravel) untuk himpunan mahasiswa yang menyelenggarakan seminar dan mengelola pendaftaran pesertanya.
 
