@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Pendaftar</h1>
+    <a href="/registrations/create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Tambah Pendaftar</a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form method="GET" action="/registrations" class="row g-2 mb-3">
+            <div class="col-md-5">
+                <input type="text" name="q" value="{{.Search}}" class="form-control" placeholder="Cari nama, email, atau kode tiket...">
+            </div>
+            <div class="col-md-4">
+                <select name="seminar" class="form-select">
+                    <option value="0">&mdash; Semua seminar &mdash;</option>
+                    {{range .Seminars}}
+                    <option value="{{.ID}}" {{if eq .ID $.SeminarID}}selected{{end}}>{{.Title}}</option>
+                    {{end}}
+                </select>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-outline-primary"><i class="bi bi-funnel"></i> Filter</button>
+                {{if or .Search .SeminarID}}<a href="/registrations" class="btn btn-outline-secondary">Reset</a>{{end}}
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th><th>Kode Tiket</th><th>Nama</th><th>Email</th><th>NIM</th>
+                        <th>Seminar</th><th class="text-center">Hadir</th><th class="text-end">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{$offset := .Pagination.From}}
+                    {{range $i, $r := .Registrations}}
+                    <tr>
+                        <td>{{add $offset $i}}</td>
+                        <td><code>{{$r.TicketCode}}</code></td>
+                        <td class="fw-semibold">{{$r.Name}}<div class="small text-muted">{{$r.Institution}}</div></td>
+                        <td>{{$r.Email}}</td>
+                        <td>{{if $r.NIM}}{{$r.NIM}}{{else}}<span class="text-muted">-</span>{{end}}</td>
+                        <td><span class="badge text-bg-info text-wrap text-start">{{$r.Seminar.Title}}</span></td>
+                        <td class="text-center">{{if $r.Attended}}<span class="badge text-bg-success">Hadir</span>{{else}}<span class="badge text-bg-light border">Belum</span>{{end}}</td>
+                        <td class="text-end text-nowrap">
+                            <a href="/registrations/{{$r.ID}}/edit" class="btn btn-sm btn-warning" title="Ubah"><i class="bi bi-pencil"></i></a>
+                            <button type="button" class="btn btn-sm btn-danger btn-delete" title="Hapus"
+                                    data-action="/registrations/{{$r.ID}}" data-name="{{$r.Name}}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr><td colspan="8" class="text-center text-muted py-4">Data pendaftar tidak ditemukan.</td></tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+
+        {{template "partials/pagination" .Pagination}}
+    </div>
+</div>

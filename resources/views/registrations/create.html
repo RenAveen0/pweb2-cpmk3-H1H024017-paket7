@@ -1,0 +1,19 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/registrations">Pendaftar</a></li>
+        <li class="breadcrumb-item active">Tambah</li>
+    </ol>
+</nav>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white"><h1 class="h5 mb-0">Tambah Pendaftar</h1></div>
+    <div class="card-body">
+        <form method="POST" action="/registrations" novalidate>
+            {{template "registrations/_form" .}}
+            <div class="mt-4">
+                <a href="/registrations" class="btn btn-secondary">Batal</a>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>

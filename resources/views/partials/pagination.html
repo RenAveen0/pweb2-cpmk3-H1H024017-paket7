@@ -1,0 +1,21 @@
+{{/* Dipanggil dengan: {{template "partials/pagination" .Pagination}} */}}
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 mt-3">
+    <small class="text-muted">Menampilkan {{.From}}&ndash;{{.To}} dari {{.Total}} data</small>
+    {{if gt .LastPage 1}}
+    <nav>
+        <ul class="pagination pagination-sm mb-0">
+            <li class="page-item {{if not .HasPrev}}disabled{{end}}">
+                <a class="page-link" href="{{.Link .PrevPage}}">&laquo;</a>
+            </li>
+            {{range .Pages}}
+            <li class="page-item {{if eq . $.Page}}active{{end}}">
+                <a class="page-link" href="{{$.Link .}}">{{.}}</a>
+            </li>
+            {{end}}
+            <li class="page-item {{if not .HasNext}}disabled{{end}}">
+                <a class="page-link" href="{{.Link .NextPage}}">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+    {{end}}
+</div>

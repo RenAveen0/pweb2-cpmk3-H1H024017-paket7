@@ -1,0 +1,43 @@
+<input type="hidden" name="_csrf" value="{{.CsrfToken}}">
+
+<div class="row g-3">
+    <div class="col-12">
+        <label for="seminar_id" class="form-label">Seminar <span class="text-danger">*</span></label>
+        <select id="seminar_id" name="seminar_id" class="form-select {{if index .Errors "seminar_id"}}is-invalid{{end}}">
+            <option value="">&mdash; Pilih seminar &mdash;</option>
+            {{range .Seminars}}
+            <option value="{{.ID}}" {{if eq .ID $.Form.SeminarID}}selected{{end}} {{if and (ne .ID $.Form.SeminarID) (ne .Status "Tersedia")}}disabled{{end}}>{{.Title}} &mdash; {{tanggal .EventDate}} ({{.Status}})</option>
+            {{end}}
+        </select>
+        {{with index .Errors "seminar_id"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+        <div class="form-text">Seminar yang penuh atau sudah selesai tidak bisa dipilih.</div>
+    </div>
+
+    <div class="col-md-6">
+        <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
+        <input type="text" id="name" name="name" value="{{.Form.Name}}"
+               class="form-control {{if index .Errors "name"}}is-invalid{{end}}" placeholder="Nama peserta">
+        {{with index .Errors "name"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+    </div>
+
+    <div class="col-md-6">
+        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+        <input type="email" id="email" name="email" value="{{.Form.Email}}"
+               class="form-control {{if index .Errors "email"}}is-invalid{{end}}" placeholder="nama@email.com">
+        {{with index .Errors "email"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+    </div>
+
+    <div class="col-md-6">
+        <label for="nim" class="form-label">NIM <span class="text-muted small">(opsional)</span></label>
+        <input type="text" id="nim" name="nim" value="{{.Form.NIM}}"
+               class="form-control {{if index .Errors "nim"}}is-invalid{{end}}" placeholder="H1H024017">
+        {{with index .Errors "nim"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+    </div>
+
+    <div class="col-md-6">
+        <label for="institution" class="form-label">Instansi <span class="text-danger">*</span></label>
+        <input type="text" id="institution" name="institution" value="{{.Form.Institution}}"
+               class="form-control {{if index .Errors "institution"}}is-invalid{{end}}" placeholder="contoh: Universitas Jenderal Soedirman">
+        {{with index .Errors "institution"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+    </div>
+</div>

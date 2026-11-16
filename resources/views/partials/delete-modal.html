@@ -1,0 +1,21 @@
+<!-- Satu modal konfirmasi hapus dipakai bersama oleh semua tombol .btn-delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form method="POST" id="deleteForm" class="modal-content">
+            <input type="hidden" name="_csrf" value="{{.CsrfToken}}">
+            <input type="hidden" name="_method" value="DELETE">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger"><i class="bi bi-trash"></i> Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Yakin ingin menghapus <strong id="deleteName"></strong>? Data yang dihapus tidak bisa dikembalikan.
+                <div id="deleteNote" class="small text-danger mt-2"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+            </div>
+        </form>
+    </div>
+</div>

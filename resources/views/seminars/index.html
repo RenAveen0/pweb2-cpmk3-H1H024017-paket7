@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Seminar</h1>
+    <a href="/seminars/create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Tambah Seminar</a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form method="GET" action="/seminars" class="row g-2 mb-3">
+            <div class="col-md-6">
+                <input type="text" name="q" value="{{.Search}}" class="form-control" placeholder="Cari judul atau pembicara...">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-outline-primary"><i class="bi bi-search"></i> Cari</button>
+                {{if .Search}}<a href="/seminars" class="btn btn-outline-secondary">Reset</a>{{end}}
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width:50px">#</th><th>Seminar</th><th>Tanggal</th><th>Biaya</th>
+                        <th style="min-width:180px">Pendaftar / Kuota</th><th>Status</th><th class="text-end">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{$offset := .Pagination.From}}
+                    {{range $i, $s := .Seminars}}
+                    <tr>
+                        <td>{{add $offset $i}}</td>
+                        <td>
+                            <a href="/seminars/{{$s.ID}}" class="fw-semibold text-decoration-none">{{$s.Title}}</a>
+                            <div class="small text-muted"><i class="bi bi-person"></i> {{$s.Speaker}} &middot; <i class="bi bi-geo-alt"></i> {{$s.Location}}</div>
+                        </td>
+                        <td class="text-nowrap">{{tanggalWaktu $s.EventDate}}</td>
+                        <td class="text-nowrap">{{feeLabel $s.Fee}}</td>
+                        <td>
+                            {{$pct := $s.Percent}}
+                            <div class="progress" style="height:10px" role="progressbar" aria-valuenow="{{$pct}}" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar {{barClass $pct}}" style="width: {{$pct}}%"></div>
+                            </div>
+                            <small class="text-muted">{{$s.RegistrationsCount}} / {{$s.Quota}} peserta</small>
+                        </td>
+                        <td><span class="badge {{statusClass $s.Status}}">{{$s.Status}}</span></td>
+                        <td class="text-end text-nowrap">
+                            <a href="/seminars/{{$s.ID}}" class="btn btn-sm btn-outline-secondary" title="Detail"><i class="bi bi-eye"></i></a>
+                            <a href="/seminars/{{$s.ID}}/edit" class="btn btn-sm btn-warning" title="Ubah"><i class="bi bi-pencil"></i></a>
+                            <button type="button" class="btn btn-sm btn-danger btn-delete" title="Hapus"
+                                    data-action="/seminars/{{$s.ID}}" data-name="{{$s.Title}}"
+                                    data-note="{{$s.RegistrationsCount}} pendaftar seminar ini ikut terhapus.">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr><td colspan="7" class="text-center text-muted py-4">Data seminar tidak ditemukan.</td></tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+
+        {{template "partials/pagination" .Pagination}}
+    </div>
+</div>

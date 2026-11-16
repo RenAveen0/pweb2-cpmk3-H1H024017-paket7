@@ -1,0 +1,46 @@
+<input type="hidden" name="_csrf" value="{{.CsrfToken}}">
+
+<div class="row g-3">
+    <div class="col-12">
+        <label for="title" class="form-label">Judul Seminar <span class="text-danger">*</span></label>
+        <input type="text" id="title" name="title" value="{{.Form.Title}}"
+               class="form-control {{if index .Errors "title"}}is-invalid{{end}}" placeholder="contoh: Workshop REST API dengan Go">
+        {{with index .Errors "title"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+    </div>
+
+    <div class="col-md-6">
+        <label for="speaker" class="form-label">Pembicara <span class="text-danger">*</span></label>
+        <input type="text" id="speaker" name="speaker" value="{{.Form.Speaker}}"
+               class="form-control {{if index .Errors "speaker"}}is-invalid{{end}}" placeholder="Nama pembicara">
+        {{with index .Errors "speaker"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+    </div>
+
+    <div class="col-md-6">
+        <label for="location" class="form-label">Lokasi <span class="text-danger">*</span></label>
+        <input type="text" id="location" name="location" value="{{.Form.Location}}"
+               class="form-control {{if index .Errors "location"}}is-invalid{{end}}" placeholder="contoh: Aula Fakultas Teknik">
+        {{with index .Errors "location"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+    </div>
+
+    <div class="col-md-4">
+        <label for="event_date" class="form-label">Tanggal &amp; Jam <span class="text-danger">*</span></label>
+        <input type="datetime-local" id="event_date" name="event_date" value="{{.Form.EventDate}}"
+               class="form-control {{if index .Errors "event_date"}}is-invalid{{end}}">
+        {{with index .Errors "event_date"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+    </div>
+
+    <div class="col-md-4">
+        <label for="quota" class="form-label">Kuota Peserta <span class="text-danger">*</span></label>
+        <input type="number" id="quota" name="quota" min="1" value="{{if .Form.Quota}}{{.Form.Quota}}{{end}}"
+               class="form-control {{if index .Errors "quota"}}is-invalid{{end}}" placeholder="50">
+        {{with index .Errors "quota"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+    </div>
+
+    <div class="col-md-4">
+        <label for="fee" class="form-label">Biaya (Rp)</label>
+        <input type="number" id="fee" name="fee" min="0" value="{{.Form.Fee}}"
+               class="form-control {{if index .Errors "fee"}}is-invalid{{end}}">
+        {{with index .Errors "fee"}}<div class="invalid-feedback">{{.}}</div>{{end}}
+        <div class="form-text">Isi 0 untuk seminar gratis.</div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/seminars">Seminar</a></li>
+        <li class="breadcrumb-item active">{{.Seminar.Title}}</li>
+    </ol>
+</nav>
+
+{{$s := .Seminar}}
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h1 class="h5 mb-0">{{$s.Title}}</h1>
+        <span class="badge {{statusClass $s.Status}}">{{$s.Status}}</span>
+    </div>
+    <div class="card-body">
+        <dl class="row mb-3">
+            <dt class="col-sm-3">Pembicara</dt> <dd class="col-sm-9">{{$s.Speaker}}</dd>
+            <dt class="col-sm-3">Tanggal</dt>   <dd class="col-sm-9">{{tanggalWaktu $s.EventDate}}</dd>
+            <dt class="col-sm-3">Lokasi</dt>    <dd class="col-sm-9">{{$s.Location}}</dd>
+            <dt class="col-sm-3">Biaya</dt>     <dd class="col-sm-9">{{feeLabel $s.Fee}}</dd>
+            <dt class="col-sm-3">Kuota</dt>
+            <dd class="col-sm-9">
+                {{$pct := $s.Percent}}
+                <div class="progress mb-1" style="height:12px" role="progressbar" aria-valuenow="{{$pct}}" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar {{barClass $pct}}" style="width: {{$pct}}%"></div>
+                </div>
+                <small class="text-muted">{{$s.RegistrationsCount}} dari {{$s.Quota}} kursi terisi (sisa {{$s.Remaining}}) &middot; hadir: {{.Attended}}</small>
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer bg-white text-end">
+        <a href="/seminars" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Kembali</a>
+        <a href="/seminars/{{$s.ID}}/export" class="btn btn-outline-success"><i class="bi bi-filetype-csv"></i> Export Daftar Hadir</a>
+        <a href="/seminars/{{$s.ID}}/edit" class="btn btn-warning"><i class="bi bi-pencil"></i> Ubah</a>
+        <button type="button" class="btn btn-danger btn-delete"
+                data-action="/seminars/{{$s.ID}}" data-name="{{$s.Title}}"
+                data-note="{{$s.RegistrationsCount}} pendaftar seminar ini ikut terhapus.">
+            <i class="bi bi-trash"></i> Hapus
+        </button>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <span class="fw-semibold"><i class="bi bi-people"></i> Daftar Peserta</span>
+        {{if eq $s.Status "Tersedia"}}
+        <a href="/registrations/create?seminar={{$s.ID}}" class="btn btn-sm btn-primary"><i class="bi bi-plus-lg"></i> Tambah Peserta</a>
+        {{end}}
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr><th>#</th><th>Kode Tiket</th><th>Nama</th><th>Email</th><th>NIM</th><th>Instansi</th><th>Hadir</th></tr>
+            </thead>
+            <tbody>
+                {{range $i, $r := .Registrations}}
+                <tr>
+                    <td>{{add $i 1}}</td>
+                    <td><code>{{$r.TicketCode}}</code></td>
+                    <td class="fw-semibold">{{$r.Name}}</td>
+                    <td>{{$r.Email}}</td>
+                    <td>{{if $r.NIM}}{{$r.NIM}}{{else}}<span class="text-muted">-</span>{{end}}</td>
+                    <td>{{$r.Institution}}</td>
+                    <td>{{if $r.Attended}}<span class="badge text-bg-success">Hadir</span>{{else}}<span class="badge text-bg-light border">Belum</span>{{end}}</td>
+                </tr>
+                {{else}}
+                <tr><td colspan="7" class="text-center text-muted py-4">Belum ada peserta yang mendaftar.</td></tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+</div>
