@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"pweb2-cpmk3-paket7/app/controllers"
+	"pweb2-cpmk3-H1H024017-paket7/app/controllers"
 
 	"github.com/gofiber/fiber/v3"
 )

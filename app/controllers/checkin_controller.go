@@ -4,9 +4,9 @@ import (
 	"strings"
 	"time"
 
-	"pweb2-cpmk3-paket7/app/helpers"
-	"pweb2-cpmk3-paket7/app/models"
-	"pweb2-cpmk3-paket7/config"
+	"pweb2-cpmk3-H1H024017-paket7/app/helpers"
+	"pweb2-cpmk3-H1H024017-paket7/app/models"
+	"pweb2-cpmk3-H1H024017-paket7/config"
 
 	"github.com/gofiber/fiber/v3"
 )

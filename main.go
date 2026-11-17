@@ -4,11 +4,11 @@ import (
 	"log"
 	"os"
 
-	"pweb2-cpmk3-paket7/bootstrap"
-	"pweb2-cpmk3-paket7/config"
-	"pweb2-cpmk3-paket7/database/migrations"
-	"pweb2-cpmk3-paket7/database/seeders"
-	"pweb2-cpmk3-paket7/routes"
+	"pweb2-cpmk3-H1H024017-paket7/bootstrap"
+	"pweb2-cpmk3-H1H024017-paket7/config"
+	"pweb2-cpmk3-H1H024017-paket7/database/migrations"
+	"pweb2-cpmk3-H1H024017-paket7/database/seeders"
+	"pweb2-cpmk3-H1H024017-paket7/routes"
 
 	"github.com/gofiber/fiber/v3"
 )
